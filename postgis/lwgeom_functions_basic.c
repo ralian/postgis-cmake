@@ -35,96 +35,15 @@
 #include "liblwgeom_internal.h"
 #include "lwgeom_pg.h"
 
+#define _USE_MATH_DEFINES
 #include <math.h>
+
 #include <float.h>
 #include <string.h>
 #include <stdio.h>
 
 #define xstr(s) str(s)
 #define str(s) #s
-
-Datum LWGEOM_mem_size(PG_FUNCTION_ARGS);
-Datum LWGEOM_summary(PG_FUNCTION_ARGS);
-Datum LWGEOM_npoints(PG_FUNCTION_ARGS);
-Datum LWGEOM_nrings(PG_FUNCTION_ARGS);
-Datum ST_Area(PG_FUNCTION_ARGS);
-Datum postgis_scripts_released(PG_FUNCTION_ARGS);
-Datum postgis_version(PG_FUNCTION_ARGS);
-Datum postgis_liblwgeom_version(PG_FUNCTION_ARGS);
-Datum postgis_lib_version(PG_FUNCTION_ARGS);
-Datum postgis_svn_version(PG_FUNCTION_ARGS);
-Datum postgis_lib_revision(PG_FUNCTION_ARGS);
-Datum postgis_libxml_version(PG_FUNCTION_ARGS);
-Datum postgis_lib_build_date(PG_FUNCTION_ARGS);
-Datum LWGEOM_length2d_linestring(PG_FUNCTION_ARGS);
-Datum LWGEOM_length_linestring(PG_FUNCTION_ARGS);
-Datum LWGEOM_perimeter2d_poly(PG_FUNCTION_ARGS);
-Datum LWGEOM_perimeter_poly(PG_FUNCTION_ARGS);
-
-Datum LWGEOM_maxdistance2d_linestring(PG_FUNCTION_ARGS);
-Datum ST_Distance(PG_FUNCTION_ARGS);
-Datum LWGEOM_closestpoint(PG_FUNCTION_ARGS);
-Datum LWGEOM_shortestline2d(PG_FUNCTION_ARGS);
-Datum LWGEOM_longestline2d(PG_FUNCTION_ARGS);
-Datum LWGEOM_dwithin(PG_FUNCTION_ARGS);
-
-Datum LWGEOM_maxdistance3d(PG_FUNCTION_ARGS);
-Datum LWGEOM_mindistance3d(PG_FUNCTION_ARGS);
-Datum LWGEOM_closestpoint3d(PG_FUNCTION_ARGS);
-Datum LWGEOM_shortestline3d(PG_FUNCTION_ARGS);
-Datum LWGEOM_longestline3d(PG_FUNCTION_ARGS);
-Datum LWGEOM_dwithin3d(PG_FUNCTION_ARGS);
-Datum LWGEOM_dfullywithin3d(PG_FUNCTION_ARGS);
-
-Datum LWGEOM_inside_circle_point(PG_FUNCTION_ARGS);
-Datum LWGEOM_collect(PG_FUNCTION_ARGS);
-Datum LWGEOM_collect_garray(PG_FUNCTION_ARGS);
-Datum LWGEOM_expand(PG_FUNCTION_ARGS);
-Datum LWGEOM_to_BOX(PG_FUNCTION_ARGS);
-Datum LWGEOM_envelope(PG_FUNCTION_ARGS);
-Datum LWGEOM_isempty(PG_FUNCTION_ARGS);
-Datum LWGEOM_segmentize2d(PG_FUNCTION_ARGS);
-Datum LWGEOM_reverse(PG_FUNCTION_ARGS);
-Datum LWGEOM_force_clockwise_poly(PG_FUNCTION_ARGS);
-Datum LWGEOM_force_sfs(PG_FUNCTION_ARGS);
-Datum LWGEOM_noop(PG_FUNCTION_ARGS);
-Datum LWGEOM_zmflag(PG_FUNCTION_ARGS);
-Datum LWGEOM_hasz(PG_FUNCTION_ARGS);
-Datum LWGEOM_hasm(PG_FUNCTION_ARGS);
-Datum LWGEOM_ndims(PG_FUNCTION_ARGS);
-Datum LWGEOM_makepoint(PG_FUNCTION_ARGS);
-Datum LWGEOM_makepoint3dm(PG_FUNCTION_ARGS);
-Datum LWGEOM_makeline_garray(PG_FUNCTION_ARGS);
-Datum LWGEOM_makeline(PG_FUNCTION_ARGS);
-Datum LWGEOM_makepoly(PG_FUNCTION_ARGS);
-Datum LWGEOM_line_from_mpoint(PG_FUNCTION_ARGS);
-Datum LWGEOM_addpoint(PG_FUNCTION_ARGS);
-Datum LWGEOM_removepoint(PG_FUNCTION_ARGS);
-Datum LWGEOM_setpoint_linestring(PG_FUNCTION_ARGS);
-Datum LWGEOM_asEWKT(PG_FUNCTION_ARGS);
-Datum LWGEOM_hasBBOX(PG_FUNCTION_ARGS);
-Datum LWGEOM_azimuth(PG_FUNCTION_ARGS);
-Datum geometry_project_direction(PG_FUNCTION_ARGS);
-Datum geometry_project_geometry(PG_FUNCTION_ARGS);
-Datum geometry_line_extend(PG_FUNCTION_ARGS);
-Datum LWGEOM_angle(PG_FUNCTION_ARGS);
-Datum LWGEOM_affine(PG_FUNCTION_ARGS);
-Datum LWGEOM_longitude_shift(PG_FUNCTION_ARGS);
-Datum optimistic_overlap(PG_FUNCTION_ARGS);
-Datum ST_GeoHash(PG_FUNCTION_ARGS);
-Datum ST_MakeEnvelope(PG_FUNCTION_ARGS);
-Datum ST_TileEnvelope(PG_FUNCTION_ARGS);
-Datum ST_CollectionExtract(PG_FUNCTION_ARGS);
-Datum ST_CollectionHomogenize(PG_FUNCTION_ARGS);
-Datum ST_IsCollection(PG_FUNCTION_ARGS);
-Datum ST_QuantizeCoordinates(PG_FUNCTION_ARGS);
-Datum ST_WrapX(PG_FUNCTION_ARGS);
-Datum ST_Scroll(PG_FUNCTION_ARGS);
-Datum LWGEOM_FilterByM(PG_FUNCTION_ARGS);
-Datum ST_Point(PG_FUNCTION_ARGS);
-Datum ST_PointZ(PG_FUNCTION_ARGS);
-Datum ST_PointM(PG_FUNCTION_ARGS);
-Datum ST_PointZM(PG_FUNCTION_ARGS);
 
 /*------------------------------------------------------------------*/
 
@@ -211,7 +130,7 @@ Datum postgis_lib_revision(PG_FUNCTION_ARGS)
 PG_FUNCTION_INFO_V1(postgis_lib_build_date);
 Datum postgis_lib_build_date(PG_FUNCTION_ARGS)
 {
-	char *ver = POSTGIS_BUILD_DATE;
+	char *ver = "__DATE__";
 	text *result = cstring_to_text(ver);
 	PG_RETURN_TEXT_P(result);
 }
@@ -1942,7 +1861,6 @@ Datum LWGEOM_noop(PG_FUNCTION_ARGS)
 	PG_RETURN_POINTER(out);
 }
 
-Datum ST_Normalize(PG_FUNCTION_ARGS);
 PG_FUNCTION_INFO_V1(ST_Normalize);
 Datum ST_Normalize(PG_FUNCTION_ARGS)
 {
@@ -2975,7 +2893,6 @@ Datum ST_CollectionHomogenize(PG_FUNCTION_ARGS)
 	PG_RETURN_POINTER(output);
 }
 
-Datum ST_RemoveRepeatedPoints(PG_FUNCTION_ARGS);
 PG_FUNCTION_INFO_V1(ST_RemoveRepeatedPoints);
 Datum ST_RemoveRepeatedPoints(PG_FUNCTION_ARGS)
 {
@@ -3007,7 +2924,6 @@ Datum ST_RemoveRepeatedPoints(PG_FUNCTION_ARGS)
 	PG_RETURN_POINTER(g_out);
 }
 
-Datum ST_FlipCoordinates(PG_FUNCTION_ARGS);
 PG_FUNCTION_INFO_V1(ST_FlipCoordinates);
 Datum ST_FlipCoordinates(PG_FUNCTION_ARGS)
 {
@@ -3039,7 +2955,6 @@ ordname2ordval(char n)
 	return (LWORD)-1;
 }
 
-Datum ST_SwapOrdinates(PG_FUNCTION_ARGS);
 PG_FUNCTION_INFO_V1(ST_SwapOrdinates);
 Datum ST_SwapOrdinates(PG_FUNCTION_ARGS)
 {
@@ -3091,7 +3006,6 @@ Datum ST_SwapOrdinates(PG_FUNCTION_ARGS)
 /*
  * ST_BoundingDiagonal(inp geometry, fits boolean)
  */
-Datum ST_BoundingDiagonal(PG_FUNCTION_ARGS);
 PG_FUNCTION_INFO_V1(ST_BoundingDiagonal);
 Datum ST_BoundingDiagonal(PG_FUNCTION_ARGS)
 {
@@ -3151,7 +3065,6 @@ Datum ST_BoundingDiagonal(PG_FUNCTION_ARGS)
 	PG_RETURN_POINTER(geom_out);
 }
 
-Datum ST_Scale(PG_FUNCTION_ARGS);
 PG_FUNCTION_INFO_V1(ST_Scale);
 Datum ST_Scale(PG_FUNCTION_ARGS)
 {
@@ -3248,7 +3161,6 @@ Datum ST_Scale(PG_FUNCTION_ARGS)
 	PG_RETURN_POINTER(ret);
 }
 
-Datum ST_Points(PG_FUNCTION_ARGS);
 PG_FUNCTION_INFO_V1(ST_Points);
 Datum ST_Points(PG_FUNCTION_ARGS)
 {

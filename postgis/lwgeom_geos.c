@@ -44,63 +44,6 @@
 #include "lwgeom_geos_prepared.h"
 #include "lwgeom_accum.h"
 
-
-
-
-/*
-** Prototypes for SQL-bound functions
-*/
-Datum relate_full(PG_FUNCTION_ARGS);
-Datum relate_pattern(PG_FUNCTION_ARGS);
-Datum disjoint(PG_FUNCTION_ARGS);
-Datum touches(PG_FUNCTION_ARGS);
-Datum ST_Intersects(PG_FUNCTION_ARGS);
-Datum crosses(PG_FUNCTION_ARGS);
-Datum contains(PG_FUNCTION_ARGS);
-Datum within(PG_FUNCTION_ARGS);
-Datum containsproperly(PG_FUNCTION_ARGS);
-Datum covers(PG_FUNCTION_ARGS);
-Datum overlaps(PG_FUNCTION_ARGS);
-Datum isvalid(PG_FUNCTION_ARGS);
-Datum isvalidreason(PG_FUNCTION_ARGS);
-Datum isvaliddetail(PG_FUNCTION_ARGS);
-Datum buffer(PG_FUNCTION_ARGS);
-Datum ST_Intersection(PG_FUNCTION_ARGS);
-Datum convexhull(PG_FUNCTION_ARGS);
-Datum topologypreservesimplify(PG_FUNCTION_ARGS);
-Datum ST_Difference(PG_FUNCTION_ARGS);
-Datum boundary(PG_FUNCTION_ARGS);
-Datum ST_SymDifference(PG_FUNCTION_ARGS);
-Datum ST_Union(PG_FUNCTION_ARGS);
-Datum issimple(PG_FUNCTION_ARGS);
-Datum isring(PG_FUNCTION_ARGS);
-Datum pointonsurface(PG_FUNCTION_ARGS);
-Datum GEOSnoop(PG_FUNCTION_ARGS);
-Datum postgis_geos_version(PG_FUNCTION_ARGS);
-Datum postgis_geos_compiled_version(PG_FUNCTION_ARGS);
-Datum centroid(PG_FUNCTION_ARGS);
-Datum polygonize_garray(PG_FUNCTION_ARGS);
-Datum clusterintersecting_garray(PG_FUNCTION_ARGS);
-Datum cluster_within_distance_garray(PG_FUNCTION_ARGS);
-Datum linemerge(PG_FUNCTION_ARGS);
-Datum coveredby(PG_FUNCTION_ARGS);
-Datum hausdorffdistance(PG_FUNCTION_ARGS);
-Datum hausdorffdistancedensify(PG_FUNCTION_ARGS);
-Datum ST_FrechetDistance(PG_FUNCTION_ARGS);
-Datum ST_UnaryUnion(PG_FUNCTION_ARGS);
-Datum ST_Equals(PG_FUNCTION_ARGS);
-Datum ST_BuildArea(PG_FUNCTION_ARGS);
-Datum ST_DelaunayTriangles(PG_FUNCTION_ARGS);
-Datum ST_MaximumInscribedCircle(PG_FUNCTION_ARGS);
-Datum ST_ConcaveHull(PG_FUNCTION_ARGS);
-Datum ST_SimplifyPolygonHull(PG_FUNCTION_ARGS);
-Datum pgis_union_geometry_array(PG_FUNCTION_ARGS);
-
-/*
-** Prototypes end
-*/
-
-
 PG_FUNCTION_INFO_V1(postgis_geos_version);
 Datum postgis_geos_version(PG_FUNCTION_ARGS)
 {
@@ -792,17 +735,6 @@ Datum ST_Union(PG_FUNCTION_ARGS)
 	PG_RETURN_POINTER(result);
 }
 
-/* This is retained for backward ABI compatibility
- * with PostGIS < 3.1.0 */
-PG_FUNCTION_INFO_V1(symdifference);
-Datum symdifference(PG_FUNCTION_ARGS)
-{
-  PG_RETURN_DATUM(DirectFunctionCall2(
-     ST_SymDifference,
-     PG_GETARG_DATUM(0), PG_GETARG_DATUM(1)
-  ));
-}
-
 /**
  *  @example symdifference {@link #symdifference} - SELECT ST_SymDifference(
  *      'POLYGON((0 0, 10 0, 10 10, 0 10, 0 0))',
@@ -836,6 +768,15 @@ Datum ST_SymDifference(PG_FUNCTION_ARGS)
 	PG_FREE_IF_COPY(geom2, 1);
 
 	PG_RETURN_POINTER(result);
+}
+
+/* This is retained for backward ABI compatibility
+ * with PostGIS < 3.1.0 */
+PG_FUNCTION_INFO_V1(symdifference);
+Datum
+symdifference(PG_FUNCTION_ARGS)
+{
+	PG_RETURN_DATUM(DirectFunctionCall2(ST_SymDifference, PG_GETARG_DATUM(0), PG_GETARG_DATUM(1)));
 }
 
 PG_FUNCTION_INFO_V1(convexhull);
@@ -1253,7 +1194,7 @@ Datum buffer(PG_FUNCTION_ARGS)
 * polygon or multipolygon. Throws an error for other geometry
 * types.
 */
-Datum ST_GeneratePoints(PG_FUNCTION_ARGS);
+
 PG_FUNCTION_INFO_V1(ST_GeneratePoints);
 Datum ST_GeneratePoints(PG_FUNCTION_ARGS)
 {
@@ -1300,7 +1241,7 @@ Datum ST_GeneratePoints(PG_FUNCTION_ARGS)
 /*
 * Compute at offset curve to a line
 */
-Datum ST_OffsetCurve(PG_FUNCTION_ARGS);
+
 PG_FUNCTION_INFO_V1(ST_OffsetCurve);
 Datum ST_OffsetCurve(PG_FUNCTION_ARGS)
 {
@@ -1530,7 +1471,7 @@ Datum centroid(PG_FUNCTION_ARGS)
 	PG_RETURN_POINTER(result);
 }
 
-Datum ST_ReducePrecision(PG_FUNCTION_ARGS);
+
 PG_FUNCTION_INFO_V1(ST_ReducePrecision);
 Datum ST_ReducePrecision(PG_FUNCTION_ARGS)
 {
@@ -1551,7 +1492,7 @@ Datum ST_ReducePrecision(PG_FUNCTION_ARGS)
 	PG_RETURN_POINTER(result);
 }
 
-Datum ST_ClipByBox2d(PG_FUNCTION_ARGS);
+
 PG_FUNCTION_INFO_V1(ST_ClipByBox2d);
 Datum ST_ClipByBox2d(PG_FUNCTION_ARGS)
 {
@@ -3149,7 +3090,7 @@ Datum ST_TriangulatePolygon(PG_FUNCTION_ARGS)
  *
  * Snap a geometry to another with a given tolerance
  */
-Datum ST_Snap(PG_FUNCTION_ARGS);
+
 PG_FUNCTION_INFO_V1(ST_Snap);
 Datum ST_Snap(PG_FUNCTION_ARGS)
 {
@@ -3200,7 +3141,7 @@ Datum ST_Snap(PG_FUNCTION_ARGS)
  * [1] http://trac.osgeo.org/postgis/wiki/UsersWikiSplitPolygonWithLineString
  *
  */
-Datum ST_Split(PG_FUNCTION_ARGS);
+
 PG_FUNCTION_INFO_V1(ST_Split);
 Datum ST_Split(PG_FUNCTION_ARGS)
 {
@@ -3261,7 +3202,7 @@ Datum ST_Split(PG_FUNCTION_ARGS)
  * 0494241492)"
  *
  **********************************************************************/
-Datum ST_SharedPaths(PG_FUNCTION_ARGS);
+
 PG_FUNCTION_INFO_V1(ST_SharedPaths);
 Datum ST_SharedPaths(PG_FUNCTION_ARGS)
 {
@@ -3302,7 +3243,7 @@ Datum ST_SharedPaths(PG_FUNCTION_ARGS)
  * preserving all of the input ones.
  *
  **********************************************************************/
-Datum ST_Node(PG_FUNCTION_ARGS);
+
 PG_FUNCTION_INFO_V1(ST_Node);
 Datum ST_Node(PG_FUNCTION_ARGS)
 {
@@ -3337,7 +3278,7 @@ Datum ST_Node(PG_FUNCTION_ARGS)
  * from the points of the input geometry.
  *
  ******************************************/
-Datum ST_Voronoi(PG_FUNCTION_ARGS);
+
 PG_FUNCTION_INFO_V1(ST_Voronoi);
 Datum ST_Voronoi(PG_FUNCTION_ARGS)
 {
@@ -3427,7 +3368,7 @@ Datum ST_Voronoi(PG_FUNCTION_ARGS)
  * Returns the minimum clearance of a geometry.
  *
  ******************************************/
-Datum ST_MinimumClearance(PG_FUNCTION_ARGS);
+
 PG_FUNCTION_INFO_V1(ST_MinimumClearance);
 Datum ST_MinimumClearance(PG_FUNCTION_ARGS)
 {
@@ -3458,7 +3399,7 @@ Datum ST_MinimumClearance(PG_FUNCTION_ARGS)
  * Returns the minimum clearance line of a geometry.
  *
  ******************************************/
-Datum ST_MinimumClearanceLine(PG_FUNCTION_ARGS);
+
 PG_FUNCTION_INFO_V1(ST_MinimumClearanceLine);
 Datum ST_MinimumClearanceLine(PG_FUNCTION_ARGS)
 {
@@ -3494,7 +3435,7 @@ Datum ST_MinimumClearanceLine(PG_FUNCTION_ARGS)
  * ST_OrientedEnvelope
  *
  ******************************************/
-Datum ST_OrientedEnvelope(PG_FUNCTION_ARGS);
+
 PG_FUNCTION_INFO_V1(ST_OrientedEnvelope);
 Datum ST_OrientedEnvelope(PG_FUNCTION_ARGS)
 {
@@ -3531,7 +3472,7 @@ Datum ST_OrientedEnvelope(PG_FUNCTION_ARGS)
 * is fully contained in a buffer of the first
 * argument.
 */
-Datum LWGEOM_dfullywithin(PG_FUNCTION_ARGS);
+
 PG_FUNCTION_INFO_V1(LWGEOM_dfullywithin);
 Datum LWGEOM_dfullywithin(PG_FUNCTION_ARGS)
 {

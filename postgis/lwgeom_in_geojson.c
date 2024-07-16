@@ -59,9 +59,6 @@ text2cstring(const text *textptr)
 }
 #endif
 
-Datum geom_from_geojson(PG_FUNCTION_ARGS);
-Datum postgis_libjson_version(PG_FUNCTION_ARGS);
-
 PG_FUNCTION_INFO_V1(postgis_libjson_version);
 Datum postgis_libjson_version(PG_FUNCTION_ARGS)
 {

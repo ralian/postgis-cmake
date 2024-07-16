@@ -34,14 +34,6 @@
 #include "stringbuffer.h"
 #include "lwgeom_transform.h"
 
-
-Datum transform(PG_FUNCTION_ARGS);
-Datum transform_geom(PG_FUNCTION_ARGS);
-Datum transform_pipeline_geom(PG_FUNCTION_ARGS);
-Datum postgis_proj_version(PG_FUNCTION_ARGS);
-Datum postgis_proj_compiled_version(PG_FUNCTION_ARGS);
-Datum LWGEOM_asKML(PG_FUNCTION_ARGS);
-
 /**
  * transform( GEOMETRY, INT (output srid) )
  * tmpPts - if there is a nadgrid error (-38), we re-try the transform
@@ -538,7 +530,6 @@ srs_find_planar(const char *auth_name, const LWGEOM *bounds, struct srs_data *st
  * Search for srtext and proj4text given auth_name and auth_srid,
  * returns TABLE(auth_name text, auth_srid text, srtext text, proj4text text)
  */
-Datum postgis_srs_entry(PG_FUNCTION_ARGS);
 PG_FUNCTION_INFO_V1(postgis_srs_entry);
 Datum postgis_srs_entry(PG_FUNCTION_ARGS)
 {
@@ -566,7 +557,6 @@ Datum postgis_srs_entry(PG_FUNCTION_ARGS)
 }
 
 
-Datum postgis_srs_entry_all(PG_FUNCTION_ARGS);
 PG_FUNCTION_INFO_V1(postgis_srs_entry_all);
 Datum postgis_srs_entry_all(PG_FUNCTION_ARGS)
 {
@@ -634,8 +624,6 @@ Datum postgis_srs_entry_all(PG_FUNCTION_ARGS)
 	SRF_RETURN_DONE(funcctx);
 }
 
-
-Datum postgis_srs_codes(PG_FUNCTION_ARGS);
 PG_FUNCTION_INFO_V1(postgis_srs_codes);
 Datum postgis_srs_codes(PG_FUNCTION_ARGS)
 {
@@ -694,7 +682,6 @@ Datum postgis_srs_codes(PG_FUNCTION_ARGS)
  * Search for projections given extent and (optional) auth_name
  * returns TABLE(auth_name, auth_srid, srtext, proj4text, point_sw, point_ne)
  */
-Datum postgis_srs_search(PG_FUNCTION_ARGS);
 PG_FUNCTION_INFO_V1(postgis_srs_search);
 Datum postgis_srs_search(PG_FUNCTION_ARGS)
 {

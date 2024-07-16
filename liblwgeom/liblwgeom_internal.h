@@ -40,6 +40,8 @@
 #include <string.h>
 #include <stdlib.h>
 #include <float.h>
+
+#define _USE_MATH_DEFINES
 #include <math.h>
 
 #if HAVE_IEEEFP_H

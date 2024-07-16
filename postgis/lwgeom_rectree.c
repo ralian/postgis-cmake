@@ -33,11 +33,6 @@
 #include "lwgeom_cache.h"
 
 
-/* Prototypes */
-Datum ST_DistanceRectTree(PG_FUNCTION_ARGS);
-Datum ST_DistanceRectTreeCached(PG_FUNCTION_ARGS);
-
-
 /**********************************************************************
 * RectTree Caching support
 **********************************************************************/

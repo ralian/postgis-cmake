@@ -18,6 +18,9 @@
 #include "liblwgeom_internal.h"
 #include "cu_tester.h"
 
+#define _USE_MATH_DEFINES
+#include <math.h>
+
 /*
 ** Global variables used by tests below
 */

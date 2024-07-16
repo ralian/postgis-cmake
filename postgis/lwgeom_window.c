@@ -114,7 +114,7 @@ read_geos_from_partition(WindowObject win_obj, uint32_t i, bool* is_null)
 	return gg;
 }
 
-extern Datum ST_ClusterDBSCAN(PG_FUNCTION_ARGS);
+
 PG_FUNCTION_INFO_V1(ST_ClusterDBSCAN);
 Datum ST_ClusterDBSCAN(PG_FUNCTION_ARGS)
 {
@@ -207,7 +207,7 @@ Datum ST_ClusterDBSCAN(PG_FUNCTION_ARGS)
 	PG_RETURN_INT32(context->clusters[row].cluster_id);
 }
 
-extern Datum ST_ClusterWithinWin(PG_FUNCTION_ARGS);
+
 PG_FUNCTION_INFO_V1(ST_ClusterWithinWin);
 Datum ST_ClusterWithinWin(PG_FUNCTION_ARGS)
 {
@@ -283,7 +283,7 @@ Datum ST_ClusterWithinWin(PG_FUNCTION_ARGS)
 	PG_RETURN_INT32(context->clusters[row].cluster_id);
 }
 
-extern Datum ST_ClusterIntersectingWin(PG_FUNCTION_ARGS);
+
 PG_FUNCTION_INFO_V1(ST_ClusterIntersectingWin);
 Datum ST_ClusterIntersectingWin(PG_FUNCTION_ARGS)
 {
@@ -349,7 +349,7 @@ Datum ST_ClusterIntersectingWin(PG_FUNCTION_ARGS)
 }
 
 
-extern Datum ST_ClusterKMeans(PG_FUNCTION_ARGS);
+
 PG_FUNCTION_INFO_V1(ST_ClusterKMeans);
 Datum ST_ClusterKMeans(PG_FUNCTION_ARGS)
 {
@@ -745,7 +745,7 @@ coverage_window_calculation(PG_FUNCTION_ARGS, int mode)
 #endif /* POSTGIS_GEOS_VERSION >= 31200 */
 
 
-extern Datum ST_CoverageSimplify(PG_FUNCTION_ARGS);
+
 PG_FUNCTION_INFO_V1(ST_CoverageSimplify);
 Datum ST_CoverageSimplify(PG_FUNCTION_ARGS)
 {
@@ -765,7 +765,7 @@ Datum ST_CoverageSimplify(PG_FUNCTION_ARGS)
 }
 
 
-extern Datum ST_CoverageInvalidEdges(PG_FUNCTION_ARGS);
+
 PG_FUNCTION_INFO_V1(ST_CoverageInvalidEdges);
 Datum ST_CoverageInvalidEdges(PG_FUNCTION_ARGS)
 {
@@ -789,7 +789,7 @@ Datum ST_CoverageInvalidEdges(PG_FUNCTION_ARGS)
  *
  */
 
-Datum ST_CoverageUnion(PG_FUNCTION_ARGS);
+
 PG_FUNCTION_INFO_V1(ST_CoverageUnion);
 Datum ST_CoverageUnion(PG_FUNCTION_ARGS)
 {

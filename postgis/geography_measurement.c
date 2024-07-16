@@ -28,7 +28,9 @@
 
 #include "../postgis_config.h"
 
+#define _USE_MATH_DEFINES
 #include <math.h>
+
 #include <float.h>
 #include <string.h>
 #include <stdio.h>
@@ -47,30 +49,6 @@
 /* round to 100 nm precision */
 #define INVMINDIST 1.0e7
 #endif
-
-Datum geography_distance(PG_FUNCTION_ARGS);
-Datum geography_distance_uncached(PG_FUNCTION_ARGS);
-Datum geography_distance_knn(PG_FUNCTION_ARGS);
-Datum geography_distance_tree(PG_FUNCTION_ARGS);
-Datum geography_dwithin(PG_FUNCTION_ARGS);
-Datum geography_dwithin_uncached(PG_FUNCTION_ARGS);
-Datum geography_area(PG_FUNCTION_ARGS);
-Datum geography_length(PG_FUNCTION_ARGS);
-Datum geography_expand(PG_FUNCTION_ARGS);
-Datum geography_point_outside(PG_FUNCTION_ARGS);
-Datum geography_covers(PG_FUNCTION_ARGS);
-Datum geography_coveredby(PG_FUNCTION_ARGS);
-Datum geography_bestsrid(PG_FUNCTION_ARGS);
-Datum geography_perimeter(PG_FUNCTION_ARGS);
-Datum geography_project(PG_FUNCTION_ARGS);
-Datum geography_azimuth(PG_FUNCTION_ARGS);
-Datum geography_segmentize(PG_FUNCTION_ARGS);
-
-Datum geography_line_locate_point(PG_FUNCTION_ARGS);
-Datum geography_line_interpolate_point(PG_FUNCTION_ARGS);
-Datum geography_line_substring(PG_FUNCTION_ARGS);
-Datum geography_closestpoint(PG_FUNCTION_ARGS);
-Datum geography_shortestline(PG_FUNCTION_ARGS);
 
 
 PG_FUNCTION_INFO_V1(geography_distance_knn);

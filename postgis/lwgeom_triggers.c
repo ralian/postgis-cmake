@@ -31,7 +31,8 @@
 #include "lwgeom_pg.h"
 #include "utils/rel.h"
 
-Datum cache_bbox(PG_FUNCTION_ARGS);
+// Forward declaration
+PG_FUNCTION_INFO_V1(LWGEOM_addBBOX);
 
 /** @file
  * 	The intended use for this trigger function is making

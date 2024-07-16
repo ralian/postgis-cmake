@@ -34,17 +34,6 @@
 
 #include "access/htup_details.h"
 
-/* Prototypes */
-Datum LWGEOM_simplify2d(PG_FUNCTION_ARGS);
-Datum LWGEOM_SetEffectiveArea(PG_FUNCTION_ARGS);
-Datum LWGEOM_line_interpolate_point(PG_FUNCTION_ARGS);
-Datum ST_LineCrossingDirection(PG_FUNCTION_ARGS);
-Datum ST_MinimumBoundingRadius(PG_FUNCTION_ARGS);
-Datum ST_MinimumBoundingCircle(PG_FUNCTION_ARGS);
-Datum ST_GeometricMedian(PG_FUNCTION_ARGS);
-Datum ST_IsPolygonCCW(PG_FUNCTION_ARGS);
-Datum ST_IsPolygonCW(PG_FUNCTION_ARGS);
-
 
 /***********************************************************************
  * Simple Douglas-Peucker line simplification.
@@ -222,7 +211,7 @@ Datum LWGEOM_line_interpolate_point(PG_FUNCTION_ARGS)
  * --vincent.mora@oslandia.com;
  ***********************************************************************/
 
-Datum ST_3DLineInterpolatePoint(PG_FUNCTION_ARGS);
+
 
 PG_FUNCTION_INFO_V1(ST_3DLineInterpolatePoint);
 Datum ST_3DLineInterpolatePoint(PG_FUNCTION_ARGS)
@@ -319,12 +308,6 @@ Datum ST_3DLineInterpolatePoint(PG_FUNCTION_ARGS)
 
 #define CHECK_RING_IS_CLOSE
 #define SAMEPOINT(a,b) ((a)->x==(b)->x&&(a)->y==(b)->y)
-
-
-
-/* Forward declarations */
-Datum LWGEOM_snaptogrid(PG_FUNCTION_ARGS);
-Datum LWGEOM_snaptogrid_pointoff(PG_FUNCTION_ARGS);
 
 
 
@@ -503,7 +486,7 @@ Datum ST_LineCrossingDirection(PG_FUNCTION_ARGS)
  * --strk@kbt.io
  ***********************************************************************/
 
-Datum LWGEOM_line_substring(PG_FUNCTION_ARGS);
+
 
 PG_FUNCTION_INFO_V1(LWGEOM_line_substring);
 Datum LWGEOM_line_substring(PG_FUNCTION_ARGS)

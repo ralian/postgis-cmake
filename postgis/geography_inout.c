@@ -45,7 +45,7 @@
 #include "geography.h"	     /* For utility functions. */
 #include "lwgeom_transform.h"
 
-Datum geography_in(PG_FUNCTION_ARGS);
+/*Datum geography_in(PG_FUNCTION_ARGS);
 Datum geography_out(PG_FUNCTION_ARGS);
 
 Datum geography_as_text(PG_FUNCTION_ARGS);
@@ -58,7 +58,7 @@ Datum geography_from_binary(PG_FUNCTION_ARGS);
 Datum geography_from_geometry(PG_FUNCTION_ARGS);
 Datum geometry_from_geography(PG_FUNCTION_ARGS);
 Datum geography_send(PG_FUNCTION_ARGS);
-Datum geography_recv(PG_FUNCTION_ARGS);
+Datum geography_recv(PG_FUNCTION_ARGS);*/
 
 GSERIALIZED* gserialized_geography_from_lwgeom(LWGEOM *lwgeom, int32 geog_typmod);
 

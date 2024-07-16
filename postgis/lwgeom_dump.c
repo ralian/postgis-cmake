@@ -41,10 +41,6 @@
 #include "lwgeom_pg.h"
 
 
-Datum LWGEOM_dump(PG_FUNCTION_ARGS);
-Datum LWGEOM_dump_rings(PG_FUNCTION_ARGS);
-Datum ST_Subdivide(PG_FUNCTION_ARGS);
-
 typedef struct GEOMDUMPNODE_T
 {
 	uint32_t idx;

@@ -127,32 +127,13 @@ dimensionality cases. (2D geometry) &&& (3D column), etc.
 
 /************************************************************************/
 
-
-/* Prototypes */
-Datum gserialized_gist_joinsel(PG_FUNCTION_ARGS);
-Datum gserialized_gist_joinsel_2d(PG_FUNCTION_ARGS);
-Datum gserialized_gist_joinsel_nd(PG_FUNCTION_ARGS);
-Datum gserialized_gist_sel(PG_FUNCTION_ARGS);
-Datum gserialized_gist_sel_2d(PG_FUNCTION_ARGS);
-Datum gserialized_gist_sel_nd(PG_FUNCTION_ARGS);
-Datum gserialized_analyze_nd(PG_FUNCTION_ARGS);
-Datum gserialized_estimated_extent(PG_FUNCTION_ARGS);
-Datum _postgis_gserialized_index_extent(PG_FUNCTION_ARGS);
-Datum _postgis_gserialized_sel(PG_FUNCTION_ARGS);
-Datum _postgis_gserialized_joinsel(PG_FUNCTION_ARGS);
-Datum _postgis_gserialized_stats(PG_FUNCTION_ARGS);
-
 /* Local prototypes */
 static Oid table_get_spatial_index(Oid tbl_oid, int16 attnum, int *key_type, int16 *idx_attnum);
 static GBOX * spatial_index_read_extent(Oid idx_oid, int idx_att_num, int key_type);
 
-
 /* Other prototypes */
 float8 gserialized_joinsel_internal(PlannerInfo *root, List *args, JoinType jointype, int mode);
 float8 gserialized_sel_internal(PlannerInfo *root, List *args, int varRelid, int mode);
-
-/* Old Prototype */
-Datum geometry_estimated_extent(PG_FUNCTION_ARGS);
 
 /*
  * Assign a number to the n-dimensional statistics kind
@@ -1232,36 +1213,6 @@ estimate_join_selectivity(const ND_STATS *s1, const ND_STATS *s2)
 	return selectivity;
 }
 
-/**
-* For (geometry &&& geometry) and (geography && geography)
-* we call into the N-D mode.
-*/
-PG_FUNCTION_INFO_V1(gserialized_gist_joinsel_nd);
-Datum gserialized_gist_joinsel_nd(PG_FUNCTION_ARGS)
-{
-	PG_RETURN_DATUM(DirectFunctionCall5(
-	   gserialized_gist_joinsel,
-	   PG_GETARG_DATUM(0), PG_GETARG_DATUM(1),
-	   PG_GETARG_DATUM(2), PG_GETARG_DATUM(3),
-	   Int32GetDatum(0) /* ND mode */
-	));
-}
-
-/**
-* For (geometry && geometry)
-* we call into the 2-D mode.
-*/
-PG_FUNCTION_INFO_V1(gserialized_gist_joinsel_2d);
-Datum gserialized_gist_joinsel_2d(PG_FUNCTION_ARGS)
-{
-	PG_RETURN_DATUM(DirectFunctionCall5(
-	   gserialized_gist_joinsel,
-	   PG_GETARG_DATUM(0), PG_GETARG_DATUM(1),
-	   PG_GETARG_DATUM(2), PG_GETARG_DATUM(3),
-	   Int32GetDatum(2) /* 2D mode */
-	));
-}
-
 double
 gserialized_joinsel_internal(PlannerInfo *root, List *args, JoinType jointype, int mode)
 {
@@ -1344,6 +1295,40 @@ Datum gserialized_gist_joinsel(PG_FUNCTION_ARGS)
 	}
 
 	PG_RETURN_FLOAT8(gserialized_joinsel_internal(root, args, jointype, mode));
+}
+
+/**
+ * For (geometry &&& geometry) and (geography && geography)
+ * we call into the N-D mode.
+ */
+PG_FUNCTION_INFO_V1(gserialized_gist_joinsel_nd);
+Datum
+gserialized_gist_joinsel_nd(PG_FUNCTION_ARGS)
+{
+	PG_RETURN_DATUM(DirectFunctionCall5(gserialized_gist_joinsel,
+					    PG_GETARG_DATUM(0),
+					    PG_GETARG_DATUM(1),
+					    PG_GETARG_DATUM(2),
+					    PG_GETARG_DATUM(3),
+					    Int32GetDatum(0) /* ND mode */
+					    ));
+}
+
+/**
+ * For (geometry && geometry)
+ * we call into the 2-D mode.
+ */
+PG_FUNCTION_INFO_V1(gserialized_gist_joinsel_2d);
+Datum
+gserialized_gist_joinsel_2d(PG_FUNCTION_ARGS)
+{
+	PG_RETURN_DATUM(DirectFunctionCall5(gserialized_gist_joinsel,
+					    PG_GETARG_DATUM(0),
+					    PG_GETARG_DATUM(1),
+					    PG_GETARG_DATUM(2),
+					    PG_GETARG_DATUM(3),
+					    Int32GetDatum(2) /* 2D mode */
+					    ));
 }
 
 /**
@@ -2167,36 +2152,6 @@ Datum _postgis_gserialized_joinsel(PG_FUNCTION_ARGS)
 	PG_RETURN_FLOAT8(selectivity);
 }
 
-/**
-* For (geometry && geometry)
-* we call into the 2-D mode.
-*/
-PG_FUNCTION_INFO_V1(gserialized_gist_sel_2d);
-Datum gserialized_gist_sel_2d(PG_FUNCTION_ARGS)
-{
-	PG_RETURN_DATUM(DirectFunctionCall5(
-	   gserialized_gist_sel,
-	   PG_GETARG_DATUM(0), PG_GETARG_DATUM(1),
-	   PG_GETARG_DATUM(2), PG_GETARG_DATUM(3),
-	   Int32GetDatum(2) /* 2-D mode */
-	));
-}
-
-/**
-* For (geometry &&& geometry) and (geography && geography)
-* we call into the N-D mode.
-*/
-PG_FUNCTION_INFO_V1(gserialized_gist_sel_nd);
-Datum gserialized_gist_sel_nd(PG_FUNCTION_ARGS)
-{
-	PG_RETURN_DATUM(DirectFunctionCall5(
-	   gserialized_gist_sel,
-	   PG_GETARG_DATUM(0), PG_GETARG_DATUM(1),
-	   PG_GETARG_DATUM(2), PG_GETARG_DATUM(3),
-	   Int32GetDatum(0) /* N-D mode */
-	));
-}
-
 
 /**
  * This function should return an estimation of the number of
@@ -2278,6 +2233,40 @@ Datum gserialized_gist_sel(PG_FUNCTION_ARGS)
 	float8 selectivity = gserialized_sel_internal(root, args, varRelid, mode);
 	POSTGIS_DEBUGF(2, "%s: selectivity is %g", __func__, selectivity);
 	PG_RETURN_FLOAT8(selectivity);
+}
+
+/**
+ * For (geometry && geometry)
+ * we call into the 2-D mode.
+ */
+PG_FUNCTION_INFO_V1(gserialized_gist_sel_2d);
+Datum
+gserialized_gist_sel_2d(PG_FUNCTION_ARGS)
+{
+	PG_RETURN_DATUM(DirectFunctionCall5(gserialized_gist_sel,
+					    PG_GETARG_DATUM(0),
+					    PG_GETARG_DATUM(1),
+					    PG_GETARG_DATUM(2),
+					    PG_GETARG_DATUM(3),
+					    Int32GetDatum(2) /* 2-D mode */
+					    ));
+}
+
+/**
+ * For (geometry &&& geometry) and (geography && geography)
+ * we call into the N-D mode.
+ */
+PG_FUNCTION_INFO_V1(gserialized_gist_sel_nd);
+Datum
+gserialized_gist_sel_nd(PG_FUNCTION_ARGS)
+{
+	PG_RETURN_DATUM(DirectFunctionCall5(gserialized_gist_sel,
+					    PG_GETARG_DATUM(0),
+					    PG_GETARG_DATUM(1),
+					    PG_GETARG_DATUM(2),
+					    PG_GETARG_DATUM(3),
+					    Int32GetDatum(0) /* N-D mode */
+					    ));
 }
 
 /************************************************************************/

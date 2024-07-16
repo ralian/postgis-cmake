@@ -76,6 +76,9 @@
 
 #include <float.h>
 
+// Forward declaration
+PG_FUNCTION_INFO_V1(LWGEOM_to_BOX3D);
+
 PG_FUNCTION_INFO_V1(gserialized_overlaps_3d);
 Datum gserialized_overlaps_3d(PG_FUNCTION_ARGS)
 {

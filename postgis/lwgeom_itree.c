@@ -38,10 +38,6 @@
 #include "lwgeom_itree.h"
 
 
-/* Prototypes */
-Datum ST_IntersectsIntervalTree(PG_FUNCTION_ARGS);
-
-
 /**********************************************************************
 * IntervalTree Caching support
 **********************************************************************/

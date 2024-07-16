@@ -37,7 +37,6 @@
 
 /* #define POSTGIS_DEBUG_LEVEL 4 */
 
-Datum ST_RelateMatch(PG_FUNCTION_ARGS);
 PG_FUNCTION_INFO_V1(ST_RelateMatch);
 Datum ST_RelateMatch(PG_FUNCTION_ARGS)
 {

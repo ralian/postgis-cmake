@@ -44,9 +44,6 @@
  * this entire file is in the public domain
  */
 
-Datum LWGEOM_dumppoints(PG_FUNCTION_ARGS);
-Datum LWGEOM_dumpsegments(PG_FUNCTION_ARGS);
-
 struct dumpnode {
 	LWGEOM *geom;
 	uint32_t idx; /* which member geom we're working on */

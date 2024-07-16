@@ -19,13 +19,6 @@
 
 #define CheckAggContext() GetAggContext(NULL)
 
-
-Datum pgis_geometry_union_parallel_transfn(PG_FUNCTION_ARGS);
-Datum pgis_geometry_union_parallel_combinefn(PG_FUNCTION_ARGS);
-Datum pgis_geometry_union_parallel_serialfn(PG_FUNCTION_ARGS);
-Datum pgis_geometry_union_parallel_deserialfn(PG_FUNCTION_ARGS);
-Datum pgis_geometry_union_parallel_finalfn(PG_FUNCTION_ARGS);
-
 static UnionState* state_create(void);
 static void state_append(UnionState *state, const GSERIALIZED *gser);
 static bytea* state_serialize(const UnionState *state);

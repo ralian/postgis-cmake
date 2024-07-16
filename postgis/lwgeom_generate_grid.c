@@ -37,10 +37,6 @@
 #include <stdio.h>
 
 
-Datum ST_Hexagon(PG_FUNCTION_ARGS);
-Datum ST_Square(PG_FUNCTION_ARGS);
-Datum ST_ShapeGrid(PG_FUNCTION_ARGS);
-
 /* ********* ********* ********* ********* ********* ********* ********* ********* */
 
 typedef enum

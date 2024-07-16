@@ -25,8 +25,9 @@
 
 #include "postgres.h"
 
-
+#define _USE_MATH_DEFINES
 #include <math.h>
+
 #include <float.h>
 #include <string.h>
 #include <stdio.h>
@@ -52,13 +53,6 @@
 
 
 /* PG-exposed  */
-Datum ellipsoid_in(PG_FUNCTION_ARGS);
-Datum ellipsoid_out(PG_FUNCTION_ARGS);
-Datum LWGEOM_length2d_ellipsoid(PG_FUNCTION_ARGS);
-Datum LWGEOM_length_ellipsoid_linestring(PG_FUNCTION_ARGS);
-Datum LWGEOM_distance_ellipsoid(PG_FUNCTION_ARGS);
-Datum LWGEOM_distance_sphere(PG_FUNCTION_ARGS);
-Datum geometry_distance_spheroid(PG_FUNCTION_ARGS);
 
 /* internal */
 double distance_sphere_method(double lat1, double long1,double lat2,double long2, SPHEROID *sphere);

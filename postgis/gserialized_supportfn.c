@@ -45,9 +45,6 @@
 #include "liblwgeom.h"
 #include "lwgeom_pg.h"
 
-/* Local prototypes */
-Datum postgis_index_supportfn(PG_FUNCTION_ARGS);
-
 /* From gserialized_estimate.c */
 float8 gserialized_joinsel_internal(PlannerInfo *root, List *args, JoinType jointype, int mode);
 float8 gserialized_sel_internal(PlannerInfo *root, List *args, int varRelid, int mode);

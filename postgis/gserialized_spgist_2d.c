@@ -84,17 +84,6 @@
 #include <math.h>
 
 /*
-** SP-GiST 2D index function prototypes
-*/
-
-Datum gserialized_spgist_config_2d(PG_FUNCTION_ARGS);
-Datum gserialized_spgist_choose_2d(PG_FUNCTION_ARGS);
-Datum gserialized_spgist_picksplit_2d(PG_FUNCTION_ARGS);
-Datum gserialized_spgist_inner_consistent_2d(PG_FUNCTION_ARGS);
-Datum gserialized_spgist_leaf_consistent_2d(PG_FUNCTION_ARGS);
-Datum gserialized_spgist_compress_2d(PG_FUNCTION_ARGS);
-
-/*
  * Comparator for qsort
  *
  * We don't need to use the floating point macros in here, because this

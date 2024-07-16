@@ -40,14 +40,6 @@
 #include <string.h>
 #include <stdio.h>
 
-Datum lwgeom_lt(PG_FUNCTION_ARGS);
-Datum lwgeom_le(PG_FUNCTION_ARGS);
-Datum lwgeom_eq(PG_FUNCTION_ARGS);
-Datum lwgeom_neq(PG_FUNCTION_ARGS);
-Datum lwgeom_ge(PG_FUNCTION_ARGS);
-Datum lwgeom_gt(PG_FUNCTION_ARGS);
-Datum lwgeom_cmp(PG_FUNCTION_ARGS);
-
 PG_FUNCTION_INFO_V1(lwgeom_lt);
 Datum lwgeom_lt(PG_FUNCTION_ARGS)
 {
